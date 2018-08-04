@@ -2,4 +2,46 @@
 
 Inheritance: construction, access level, multiple inheritance
 
+1) public继承方式
+基类中所有 public 成员在派生类中为 public 属性；
+基类中所有 protected 成员在派生类中为 protected 属性；
+基类中所有 private 成员在派生类中不能使用。
+
+2) protected继承方式
+基类中的所有 public 成员在派生类中为 protected 属性；
+基类中的所有 protected 成员在派生类中为 protected 属性；
+基类中的所有 private 成员在派生类中不能使用。
+
+3) private继承方式
+基类中的所有 public 成员在派生类中均为 private 属性；
+基类中的所有 protected 成员在派生类中均为 private 属性；
+基类中的所有 private 成员在派生类中不能使用。
+
+https://blog.csdn.net/feiyinzilgd/article/details/6226348
+
+The protected access label can be thought of as a blend of private and public :
+
+Like private members, protected members are inaccessible to users of the class.
+Like public members, the protected members are accessible to classes derived from this class.
+In addition, protected has another important property:
+A derived object may access the protected members of its base class only through a derived
+object. The derived class has no special access to the protected members of base type objects.
+
+在没有继承的情况下，protected跟private相同。在派生类的时候才出现分化。
+
+上面那段英文前两条都很好理解，基类对象不能访问基类的protected成员，派生类中可以访问基类的protected成员。
+也就是说private成员是不能被继承的，只有public，protected的成员才可以被继承。
+
+很多书上都说有派生类的情况下protected的访问权限同public。这种说法是不对的，类内部直接访问没什么区别，
+但是访问对象基类的protected成员只能是在该类的内部。
+
+
+Polymorphism: 
+https://www.geeksforgeeks.org/virtual-functions-and-runtime-polymorphism-in-c-set-1-introduction/
+https://blog.csdn.net/i_chaoren/article/details/77281785
+
+Array -> Actual Object (vptr) -> VTable
+
+vptr: A pointer to vtable. It is maintained per object
+vtable: A table of function pointers. It is maintained per class
 
