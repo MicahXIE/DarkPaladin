@@ -1,0 +1,5 @@
+1. C++: Encapsulation, Inheritance and Polymorphism
+
+Inheritance: construction, access level, multiple inheritance
+
+
