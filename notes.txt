@@ -45,3 +45,31 @@ Array -> Actual Object (vptr) -> VTable
 vptr: A pointer to vtable. It is maintained per object
 vtable: A table of function pointers. It is maintained per class
 
+
+
+2. 3 different ways to create array of strings in C++
+
+reference: https://www.geeksforgeeks.org/array-strings-c-3-different-ways-create/
+
+
+1) char colour[4][10] = {"Blue", "Red", "Orange", "Yellow"};
+2) string colour[4] = {"Blue", "Red", "Orange", "Yellow"};
+3) vector<string> colour;
+   colour.push_back("Blue");
+   colour.push_back("Red");
+   colour.push_back("Orange");
+   colour.push_back("Yellow");
+
+tips:
+g++ Strings.cpp -o Strings
+effective STL
+
+
+3. String Summary
+
+http://www.cplusplus.com/reference/string/string/
+
+
+
+
+
