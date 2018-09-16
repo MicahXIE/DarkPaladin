@@ -70,6 +70,61 @@ effective STL
 http://www.cplusplus.com/reference/string/string/
 
 
+4. read input array
+
+fixed number:
+int main()
+{
+       int n = 0;
+       cin >> n;
+       vector<int> p(n);
+       for(int i = 0; i < n; i++){
+              cin >> p[i];
+       }
+       return 0;
+}
+
+
+variable number:
+#include<sstream> //注意加这个头
+int main()
+{
+       string str,temp;
+       getline(cin, str);
+       int i = 0;
+       vector<int> p;
+       stringstream input(str);
+       while(input >> i){
+              p.push_back(i);
+       }      
+       return 0;
+}
+
+vector print:
+for (auto iter = p.begin(); iter != p.end(); iter++){
+    cout << *iter << ' ';
+}
+
+
+5. STL: Vector
+
+1) Declaration:
+vector<int>v; (creates an empty vector of integers)
+
+2) Size:
+int size=v.size();
+
+3) Pushing an integer into a vector:
+v.push_back(x);(where x is an integer.The size increases by 1 after this.)
+
+4) Popping the last element from the vector:
+v.pop_back(); (After this the size decreases by 1)
+
+5)Sorting a vector:
+sort(v.begin(),v.end()); (Will sort all the elements in the vector)
+
+
+
 
 
 
