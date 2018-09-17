@@ -141,5 +141,7 @@ wrong:
 int p1=p2=p3=0;
 
 
+6. STL: Map
+
 
 
