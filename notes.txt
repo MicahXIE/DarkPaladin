@@ -143,5 +143,72 @@ int p1=p2=p3=0;
 
 6. STL: Map
 
+1）Map Template:
+std::map <key_type, data_type>
 
+2）Declaration:
+map<string,int>m; //Creates a map m where key_type is of type string and data_type is of type int.
+
+3）Size:
+int length=m.size(); //Gives the size of the map.
+
+4）Insert:
+m.insert(make_pair("hello",9)); //Here the pair is inserted into the map where the key is "hello" and the value associated with it is 9.
+
+5）Erasing an element:
+m.erase(val); //Erases the pair from the map where the key_type is val.
+
+6）Finding an element:
+map<string,int>::iterator itr=m.find(val); //Gives the iterator to the element val if it is found otherwise returns m.end() .
+Ex: map<string,int>::iterator itr=m.find("Maps"); //If Maps is not present as the key value then itr==m.end().
+
+7）Accessing the value stored in the key:
+To get the value stored of the key "MAPS" we can do m["MAPS"] or we can get the iterator using the find function and then by itr->second we can access the value.
+
+
+
+7. STL: Set
+Sets are a part of the C++ STL. Sets are containers that store unique elements following a specific order. Here are some of the frequently used member functions of sets:
+
+1) Declaration:
+set<int>s; //Creates a set of integers.
+
+2) Size:
+int length=s.size(); //Gives the size of the set.
+
+3) Insert:
+s.insert(x); //Inserts an integer x into the set s.
+
+4) Erasing an element:
+s.erase(val); //Erases an integer val from the set s.
+
+5) Finding an element:
+set<int>::iterator itr=s.find(val); //Gives the iterator to the element val if it is found otherwise returns s.end() .
+Ex: set<int>::iterator itr=s.find(100); //If 100 is not present then it==s.end().
+
+
+
+8. STL: Deque
+
+Double ended queue or Deque(part of C++ STL) are sequence containers with dynamic sizes that can be expanded or contracted on both ends (either its front or its back). The member functions of deque that are mainly used are:
+
+1) Deque Template:
+std::deque<value_type>
+
+2) Declaration:
+deque<int> mydeque; //Creates a double ended queue of deque of int type
+
+3) Size
+int length = mydeque.size(); //Gives the size of the deque
+
+4) Push
+mydeque.push_back(1); //Pushes element at the end
+mydeque.push_front(2); //Pushes element at the beginning
+
+5) Pop
+mydeque.pop_back(); //Pops element from the end
+mydeque.pop_front(); //Pops element from the beginning
+
+6) Empty
+mydeque.empty() //Returns a boolean value which tells whether the deque is empty or not
 
