@@ -274,6 +274,92 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 11. struct vs class
 
+1. The data members of a class are private by default and the members of 
+a structure are public by default. 
+
+
+2. Along with storing multiple data in a common block, it also assigns 
+some functions (known as methods) to manipulate/access them. 
+It serves as the building block of Object Oriented Programming.
+
+
+C++中的struct对C中的struct进行了扩充，它已经不再只是一个包含不同数据类型的数据结构了，
+它已经获取了太多的功能。
+
+struct能包含成员函数吗？ 能！
+struct能继承吗？ 能！！
+struct能实现多态吗？ 能！！！ 
+
+既然这些它都能实现，那它和class还能有什么区别？
+
+最本质的一个区别就是默认的访问控制： 
+
+默认的继承访问权限
+
+struct是public的，class是private的。
+
+
+当然，到底默认是public继承还是private继承，取决于子类而不是基类。
+
+我的意思是，struct可以继承class，同样class也可以继承struct，那么默认的继承访问权限是看子类到底是用的struct还是class。如下：
+
+struct A{}；class B : A{}; //private继承
+struct C : B{}； //public继承
+
+reference: https://www.cnblogs.com/starfire86/p/5367740.html
+
+
+12. stringstream
+
+split:
+#include<sstream>
+#include<iostream>
+using namespace std;
+int main()
+{
+        string line,word;
+        while(getline(cin,line))
+        {
+                stringstream stream(line);
+                cout<<stream.str()<<endl;
+                while(stream>>word){cout<<word<<endl;}
+        }
+        return 0;
+}
+输入：shanghai no1 school 1989
+输出：shanghi no1 school 1989
+　　  shanghai
+　　　no1
+　　  school
+　　　1989
+
+
+formating:
+#include<sstream>
+#include<iostream>
+using namespace std;
+int main()
+{
+        int val1 = 512,val2 =1024;
+        stringstream ss;
+        ss<<"val1: "<<val1<<endl          //“val1: "此处有空格，字符串流是通过空格判断一个字符串的结束
+　　　　 <<"val2: "<<val2<<endl;
+        cout<<ss.str();
+
+        string dump;
+        int a,b;
+        ss>>dump>>a
+　　　　 >>dump>>b;
+        cout<<a<<" "<<b<<endl;
+        return 0;
+}
+
+输出为：val1: 512
+　　　　val2: 1024
+　　　　512 1024
+
+
+excellent reference: http://www.cnblogs.com/firstmiki/p/6128639.html
 
 
 
