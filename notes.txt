@@ -362,8 +362,12 @@ int main()
 excellent reference: http://www.cnblogs.com/firstmiki/p/6128639.html
 
 
+13. c++ 类成员变量
 
+类的成员变量的初始化都是在构造函数中实现的，而不能在类中设定默认值。其中，有三类成员变量比较特殊，
+就是静态类型成员变量，const常量类型成员变量，　引用类型成员变量。
 
+reference: http://www.cnblogs.com/devilmaycry812839668/p/6357403.html?utm_source=itdadao&utm_medium=referral
 
 
 
