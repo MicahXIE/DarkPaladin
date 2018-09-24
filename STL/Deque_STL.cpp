@@ -35,6 +35,7 @@ void printKMax(int arr[], int n, int k){
         dq.push_front(arr[i]); 
         
         if(dq.size() == k){
+            // only update until max is removed.
             if((max == 0 && pop == -1)||(pop == max)){
                 max = 0;
                 for(auto iter = dq.begin(); iter != dq.end(); iter++){
@@ -43,6 +44,7 @@ void printKMax(int arr[], int n, int k){
                     }
                 } 
             } else {
+                // max is not removed and compare max with new element
                 if(max < dq.front()){
                     max = dq.front();
                 }
