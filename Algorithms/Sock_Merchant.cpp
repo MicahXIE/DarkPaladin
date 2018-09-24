@@ -1,3 +1,13 @@
+/*
+Sample Input
+9
+10 20 20 10 10 30 50 10 20
+
+Sample Output
+3
+*/
+
+
 #include <bits/stdc++.h>
 #include <map>
 
@@ -11,15 +21,16 @@ int sockMerchant(int n, vector<int> ar) {
     map<int, int> mp;
     int total = 0;
     
-    for(int i=0; i<n; i++){
-        if(mp.empty() || mp.find(i) == mp.end()){
-            mp.insert(make_pair<int,int>(i,1));
+    for(auto v = ar.begin(); v != ar.end(); v++){
+        if(mp.empty() || (mp.find(*v) == mp.end())){
+            mp.insert(make_pair(*v,1));
         } else {
-            mp[i] = mp[i] + 1;
+            mp[*v] = mp[*v] + 1;
         }
     }
     
     for(auto iter = mp.begin(); iter != mp.end(); iter++){
+        cout << iter->first << " " << iter->second << endl;
         total += iter->second / 2;
     }
     
