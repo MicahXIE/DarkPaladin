@@ -369,6 +369,13 @@ excellent reference: http://www.cnblogs.com/firstmiki/p/6128639.html
 
 reference: http://www.cnblogs.com/devilmaycry812839668/p/6357403.html?utm_source=itdadao&utm_medium=referral
 
+14. c++ string
+
+str.length()
+
+reference: https://www.cnblogs.com/aminxu/p/4686320.html
+
+
 
 
 
