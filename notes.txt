@@ -165,6 +165,8 @@ Ex: map<string,int>::iterator itr=m.find("Maps"); //If Maps is not present as th
 7）Accessing the value stored in the key:
 To get the value stored of the key "MAPS" we can do m["MAPS"] or we can get the iterator using the find function and then by itr->second we can access the value.
 
+8) map提供了两种方式，查看是否包含key，m.count(key)，m.find(key)。 reference: https://www.cnblogs.com/nzbbody/p/3409298.html
+
 
 
 7. STL: Set
@@ -374,6 +376,22 @@ reference: http://www.cnblogs.com/devilmaycry812839668/p/6357403.html?utm_source
 str.length()
 
 reference: https://www.cnblogs.com/aminxu/p/4686320.html
+
+15. STL: Hashmap
+
+C++ map 和 hash_map 对比
+map的基本数据结构是平衡二叉树，hash_map的基础数据结构是hash_table哈希表，下面程序展示了向map和hash_map中插入数据消耗时间对比。
+数据量较小的时候可以选择map，数据量大、对插入查找效率要求高的时候选择hash_map。
+
+---------------------
+
+reference: https://blog.csdn.net/chen199199/article/details/78865909?utm_source=copy 
+
+
+tips:
+Check out the resources on the page's right side to learn more about hashing. 
+The video tutorial is by Gayle Laakmann McDowell, author of the best-selling interview book 
+Cracking the Coding Interview.
 
 
 
