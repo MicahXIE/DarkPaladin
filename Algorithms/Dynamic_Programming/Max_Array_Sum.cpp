@@ -31,6 +31,7 @@ int maxSubsetSum(vector<int> arr) {
     dp[1] = max(arr[1], dp[0]);
     
     for(int i=2; i<n; i++){
+        // dp[i] records the current max value
         dp[i] = max(max(arr[i], arr[i] + dp[i-2]),dp[i-1]);
     }
     
