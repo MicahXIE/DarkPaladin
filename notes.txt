@@ -377,7 +377,7 @@ str.length()
 
 reference: https://www.cnblogs.com/aminxu/p/4686320.html
 
-15. STL: Hashmap
+15. STL: Hashmap, unordered_map
 
 C++ map 和 hash_map 对比
 map的基本数据结构是平衡二叉树，hash_map的基础数据结构是hash_table哈希表，下面程序展示了向map和hash_map中插入数据消耗时间对比。
@@ -386,6 +386,70 @@ map的基本数据结构是平衡二叉树，hash_map的基础数据结构是has
 ---------------------
 
 reference: https://blog.csdn.net/chen199199/article/details/78865909?utm_source=copy 
+
+hash_map未加入在C++11标准中, C++ 11标准中加入了unordered系列的容器。
+map相当于java中的TreeMap，unordered_map相当于HashMap。
+无论从查找、插入上来说，unordered_map的效率都优于hash_map，更优于map；
+而空间复杂度方面，hash_map最低，unordered_map次之，map最大。
+
+unordered_map与map的对比：
+
+存储时是根据key的hash值判断元素是否相同，即unordered_map内部元素是无序的，而map中的元素是按照二叉搜索树存储（用红黑树实现），进行中序遍历会得到有序遍历。所以使用时map的key需要定义operator<。而unordered_map需要定义hash_value函数并且重载operator==。但是很多系统内置的数据类型都自带这些。
+
+总结：结构体用map重载<运算符，结构体用unordered_map重载==运算符。
+
+unordered_map与hash_map对比：
+
+unordered_map原来属于boost分支和std::tr1中，而hash_map属于非标准容器。
+unordered_map感觉速度和hash_map差不多，但是支持string做key，也可以使用复杂的对象作为key。
+unordered_map编译时gxx需要添加编译选项：--std=c++11
+
+unordered_map usage:
+unordered_map<string,double> myrecipe
+
+insert:
+mypantry = {{"milk",2.0},{"flour",1.5}}
+pair<string,double> myshopping ("baking powder",0.3)
+myrecipe.insert (myshopping)
+myrecipe.insert (make_pair<string,double>("eggs",6.0))
+myrecipe.insert (mypantry.begin(), mypantry.end())
+myrecipe.insert ({{"sugar",0.8},{"salt",0.1}})
+myrecipe["coffee"] = 10.0
+
+display:
+display(myrecipe,"myrecipe contains:")
+
+find:
+unordered_map<string,double>::const_iterator got = myrecipe.find ("coffee")
+
+update:
+myrecipe.at("coffee") = 9.0
+myrecipe["milk"] = 3.0
+
+erase:
+display(myrecipe,"myrecipe contains:")
+myrecipe.erase("milk")
+
+clear:
+myrecipe.clear()
+
+traverse:
+for ( auto it = mymap.begin(); it != mymap.end(); ++it )
+    cout << " " << it->first << ":" << it->second;
+cout << endl;
+
+
+
+
+
+
+
+
+
+
+reference: https://www.cnblogs.com/evidd/p/8823092.html
+
+
 
 
 tips:

@@ -17,6 +17,7 @@ Sample Output
 
 
 #include <bits/stdc++.h>
+#include <unordered_map>
 
 using namespace std;
 
@@ -25,7 +26,7 @@ vector<string> split_string(string);
 // Complete the whatFlavors function below.
 void whatFlavors(vector<int> cost, int money) {
     
-    map<int, int> mp;
+    unordered_map<int, int> mp;
     
     for(int i=0; i<cost.size(); i++){
         mp[cost[i]] = i;
