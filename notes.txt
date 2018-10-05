@@ -439,14 +439,6 @@ for ( auto it = mymap.begin(); it != mymap.end(); ++it )
 cout << endl;
 
 
-
-
-
-
-
-
-
-
 reference: https://www.cnblogs.com/evidd/p/8823092.html
 
 
@@ -479,6 +471,20 @@ reference: https://www.geeksforgeeks.org/sort-c-stl/
 2）Algorithm book
 https://web.stanford.edu/class/cs97si/
 https://www.cnblogs.com/xsyfl/p/6938642.html
+
+
+3) C++ STL unique
+
+(1) 这里的去除并非真正意义的erase，而是将重复的元素放到容器的末尾，返回值是去重之后的尾地址。 
+(2) unique针对的是相邻元素，所以对于顺序顺序错乱的数组成员，或者容器成员，需要先进行排序，
+可以调用std::sort()函数
+
+e.g
+sort(words.begin(), words.end()); 
+vector<string>::iterator end_unique =  unique(words.begin(), words.end()); 
+words.erase(end_unique, words.end());
+
+
 
 
 
