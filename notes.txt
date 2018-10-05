@@ -485,7 +485,8 @@ vector<string>::iterator end_unique =  unique(words.begin(), words.end());
 words.erase(end_unique, words.end());
 
 
-
+mac special math symbol:
+http://www.chriswrites.com/how-to-type-common-symbols-and-special-characters-in-os-x/
 
 
 
