@@ -377,6 +377,8 @@ str.length()
 
 reference: https://www.cnblogs.com/aminxu/p/4686320.html
 
+
+
 15. STL: Hashmap, unordered_map
 
 C++ map 和 hash_map 对比
@@ -442,12 +444,40 @@ cout << endl;
 reference: https://www.cnblogs.com/evidd/p/8823092.html
 
 
-
-
 tips:
 Check out the resources on the page's right side to learn more about hashing. 
 The video tutorial is by Gayle Laakmann McDowell, author of the best-selling interview book 
 Cracking the Coding Interview.
+
+
+
+16. C++ STL Stack & Queue
+
+Stack:
+stack<int> a;
+stack<string> s;
+
+s.push(x);
+s.pop(); only remove the top and wont return the top element
+s.top();
+s.empty();
+s.size();
+
+
+Queue: (vs Deque)
+FIFO 
+queue<int> q;
+queue<double> q2;
+
+q.push(x);
+q.pop();
+q.front();
+q.back();
+q.empty();
+q.size();
+
+
+
 
 
 
