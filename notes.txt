@@ -137,6 +137,9 @@ int p1,p2,p3;
 int p1=0,p2=0,p3=0; 
 int p1,p2=0,p3=0;
 
+Initialization all the elements to -1
+vector<int> distances(n,-1);
+
 wrong:
 int p1=p2=p3=0;
 
@@ -154,6 +157,7 @@ int length=m.size(); //Gives the size of the map.
 
 4）Insert:
 m.insert(make_pair("hello",9)); //Here the pair is inserted into the map where the key is "hello" and the value associated with it is 9.
+m.insert(pair<int,string>(102,"aclive"));
 
 5）Erasing an element:
 m.erase(val); //Erases the pair from the map where the key_type is val.
@@ -519,5 +523,11 @@ mac special math symbol:
 http://www.chriswrites.com/how-to-type-common-symbols-and-special-characters-in-os-x/
 
 
+4) C++ STL multimap
 
+multimap equal_range:
+http://www.cplusplus.com/reference/map/multimap/equal_range/
+
+multimap traverse:
+reference: https://blog.csdn.net/Dy_1748204009/article/details/77623395
 
