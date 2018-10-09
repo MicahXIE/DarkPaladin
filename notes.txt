@@ -531,3 +531,6 @@ http://www.cplusplus.com/reference/map/multimap/equal_range/
 multimap traverse:
 reference: https://blog.csdn.net/Dy_1748204009/article/details/77623395
 
+
+https://www.geeksforgeeks.org/print-symmetric-double-triangle-pattern/
+
