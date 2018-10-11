@@ -533,4 +533,16 @@ reference: https://blog.csdn.net/Dy_1748204009/article/details/77623395
 
 
 https://www.geeksforgeeks.org/print-symmetric-double-triangle-pattern/
+https://www.geeksforgeeks.org/
+
+5）LinkedList and Tree
+
+binary tree traverse:
+https://blog.csdn.net/qq_40772692/article/details/79343914
+前中后序 遍历
+https://blog.csdn.net/weixin_39800144/article/details/78538375
+
+
+
+
 
