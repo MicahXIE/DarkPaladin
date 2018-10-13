@@ -173,7 +173,7 @@ To get the value stored of the key "MAPS" we can do m["MAPS"] or we can get the 
 
 
 
-7. STL: Set
+7. STL: Set, unordered_set
 Sets are a part of the C++ STL. Sets are containers that store unique elements following a specific order. Here are some of the frequently used member functions of sets:
 
 1) Declaration:
