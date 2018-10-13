@@ -6,6 +6,10 @@ The Node struct is defined as follows:
 		Node* left;
 		Node* right;
 	}
+
+testing case:
+2
+1 2 4 3 5 6 7
 */
 
 	bool checkBST(Node* root) {
