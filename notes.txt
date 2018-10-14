@@ -550,6 +550,42 @@ based on root node position:
 
 后序遍历：左子树->右子树->根节点
 
+6) C++ data types and basic
+
+Int ("%d"): 32 Bit integer
+Long ("%ld"): 64 bit integer
+Char ("%c"): Character type
+Float ("%f"): 32 bit real value
+Double ("%lf"): 64 bit real value
+
+if(condition){
+  
+}
+else if(second condition){
+  
+}
+else{
+  
+}
+
+switch(expression){
+  case constant-expr:
+       statement(s);
+       break;
+  case constant-expr1: case constant-expr2:
+       statement(s1);
+       break;
+  default:
+       statement(s2);
+       break;
+}
+
+for ( <expression_1> ; <expression_2> ; <expression_3> )
+    <statement>
+
+
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 
 
 
