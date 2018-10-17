@@ -586,6 +586,10 @@ for ( <expression_1> ; <expression_2> ; <expression_3> )
 
 cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+7) array length in function
+
+There is no 'built-in' way to determine the length inside the function. However you pass arr, sizeof(arr) will always return the pointer size. So the best way is to pass the number of elements as a seperate argument.
+
 
 
 
