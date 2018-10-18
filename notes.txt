@@ -590,6 +590,8 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 There is no 'built-in' way to determine the length inside the function. However you pass arr, sizeof(arr) will always return the pointer size. So the best way is to pass the number of elements as a seperate argument.
 
+g++ -std=c++11 test.cpp -o test
+
 
 
 
