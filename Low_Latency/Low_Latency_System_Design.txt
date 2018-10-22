@@ -2,7 +2,9 @@ Low Latency System Design:
 
 1. Choose the right language
 
-When you are looking to shave those last few microseconds off your overall processing time you simply cannot have the overhead of an interpreted language. Additionally, you really want a strong memory model to enable lock-free programming so you should be looking at languages like:
+When you are looking to shave those last few microseconds off your overall processing time you simply cannot have 
+the overhead of an interpreted language. Additionally, you really want a strong memory model to enable lock-free 
+programming so you should be looking at languages like:
 
 C#
 Java
@@ -16,52 +18,82 @@ refer to Table 01 and 02 for Latency Numbers in Modern Computers.
 
 
 2. Keep it all in memory
-Read everything at the beginning of your program. Forget about databases or active persistence, this will add huge latencies, giving you enough time to whack a golf ball or two between two orders.
+Read everything at the beginning of your program. Forget about databases or active persistence, this will add huge 
+latencies, giving you enough time to whack a golf ball or two between two orders.
 
-Anything related to I/O will simply destroy your overall latency, so make sure all of your data is pre-loaded (warming up cycle) and you have it all in memory.
+Anything related to I/O will simply destroy your overall latency, so make sure all of your data is pre-loaded (warming up cycle) 
+and you have it all in memory.
 
-This generally means managing your own in-memory data structures and maintaining a persistent log, so that you can rebuild the state after a machine or process restart.
+This generally means managing your own in-memory data structures and maintaining a persistent log, so that you can 
+rebuild the state after a machine or process restart.
 
-Alternatively, you might (just might) be able to get away with running a local, persisted in-memory database like Redis or MongoDB (with available memory exceeding the data requirements). Note that you can still lose data should something unexpected happen while it is being persisted to disk in the background, but that is the price you have to pay (also see the section on asynchronous operations at the end of the article).
+Alternatively, you might (just might) be able to get away with running a local, persisted in-memory database like 
+Redis or MongoDB (with available memory exceeding the data requirements). Note that you can still lose data should 
+something unexpected happen while it is being persisted to disk in the background, but that is the price you have 
+to pay (also see the section on asynchronous operations at the end of the article).
 
 For best performance I would recommend not having any database/disk access on your critical path.
 
 
 3. Keep your hardware underutilized
-Low latency requires always having resources freely available to process the request: free CPU cores, free memory etc. When setting up your server, make sure you will have enough capacity for your intended use. If you know that your system will use 24 CPU cores and 20 GB of memory, make sure that you add 30% additional resources to have enough room.
+Low latency requires always having resources freely available to process the request: free CPU cores, free memory etc.
+ When setting up your server, make sure you will have enough capacity for your intended use. If you know that your 
+ system will use 24 CPU cores and 20 GB of memory, make sure that you add 30% additional resources to have enough room.
 
-Do not try to run at the limit of what your hardware can handle. Always have lots of head room to allow for bursts. Your system will eventually grow and will slow down at those all-important peak times. Make sure you keep plenty of spare resources available.
+Do not try to run at the limit of what your hardware can handle. Always have lots of head room to allow for bursts. 
+Your system will eventually grow and will slow down at those all-important peak times. Make sure you keep plenty of 
+spare resources available.
 
 
 4. Keep context switching to a minimum
-In concurrent applications you will end up using multiple threads to handle workloads simultaneously. Context switches are a sign that you are doing more compute work than you have resources for. Usually, the operating system will handle running those threads and will decide for you which CPU core will take which thread. Now, if you are running multiple threads at the same time, as in most HFT systems, the operating system will schedule alternate threads on the CPU in order to give them all a chance to execute. Every time the operating system instructs a CPU to switch from one thread to another, the CPU needs to save the current thread's state (in order to resume it later) and load the state for next scheduled thread. This could kill your processing performance.
+In concurrent applications you will end up using multiple threads to handle workloads simultaneously. Context switches 
+are a sign that you are doing more compute work than you have resources for. Usually, the operating system will handle 
+running those threads and will decide for you which CPU core will take which thread. Now, if you are running multiple 
+threads at the same time, as in most HFT systems, the operating system will schedule alternate threads on the CPU in order 
+to give them all a chance to execute. Every time the operating system instructs a CPU to switch from one thread to another, 
+the CPU needs to save the current thread's state (in order to resume it later) and load the state for next scheduled thread. 
+This could kill your processing performance.
 
-My best approach has been pinning critical threads to a specific core by simply using busy spinning. That way I avoid triggering a context switch and incurring excessive cache faults (as explained in the next point).
+My best approach has been pinning critical threads to a specific core by simply using busy spinning. That way I avoid 
+triggering a context switch and incurring excessive cache faults (as explained in the next point).
 
 
 5. Keep your reads sequential
-Make sure you are using the CPU caches (L1/L2). All forms of storage perform significantly better when used sequentially. When issuing sequential reads to memory you also trigger a pre-fetch from main memory. If done properly, the next piece of data you need will already be in the L1 cache right before you need it. The easiest way to help the CPU out with this process is to make heavy use of arrays of either primitive data types or structs.
+Make sure you are using the CPU caches (L1/L2). All forms of storage perform significantly better when used sequentially. 
+When issuing sequential reads to memory you also trigger a pre-fetch from main memory. If done properly, the next piece of 
+data you need will already be in the L1 cache right before you need it. The easiest way to help the CPU out with this process 
+is to make heavy use of arrays of either primitive data types or structs.
 
-Stepping through a sequence of reference pointers, either through the use of linked lists or through arrays of objects, should be avoided at all costs.
+Stepping through a sequence of reference pointers, either through the use of linked lists or through arrays of objects, 
+should be avoided at all costs.
 
 
 
 6. Use non-blocking calls where possible
-Design your system to use non-blocking and wait-free data structures and algorithms wherever possible. Every time you use a lock you have to reach down to the OS to arbitrate the lock, which again comes with a huge overhead. If you know what you are doing then you can often get around locks by understanding the memory model of the CLR, the JVM or the C++11 runtime.
+Design your system to use non-blocking and wait-free data structures and algorithms wherever possible. Every time you use 
+a lock you have to reach down to the OS to arbitrate the lock, which again comes with a huge overhead. If you know what you 
+are doing then you can often get around locks by understanding the memory model of the CLR, the JVM or the C++11 runtime.
 
 
 
 7. Avoid exception handling
-Yes, avoid it! It's expensive. Exception handling adds at least 10-20% overhead. Compilers need to add additional code and implement additional stack management to handle exceptions and that costs time. And before somebody tells me about how the GCC uses the 'zero-cost model': I suggest you profile your application and measure it. Remember: each microsecond counts.
+Yes, avoid it! It's expensive. Exception handling adds at least 10-20% overhead. Compilers need to add additional code and 
+implement additional stack management to handle exceptions and that costs time. And before somebody tells me about how the 
+GCC uses the 'zero-cost model': I suggest you profile your application and measure it. Remember: each microsecond counts.
 
 
 
 8. Async as much as possible
-Any processing and particularly any I/O that is not absolutely necessary for building the response message should be done outside of the critical path. For instance, if your system includes logging transactions to disk or sending transactions to a secondary server, then those actions can happen asynchronously. You don't have to wait until this has completed to continue on to the next instruction, as this will just block your execution path.
+Any processing and particularly any I/O that is not absolutely necessary for building the response message should be done 
+outside of the critical path. For instance, if your system includes logging transactions to disk or sending transactions 
+to a secondary server, then those actions can happen asynchronously. You don't have to wait until this has completed to 
+continue on to the next instruction, as this will just block your execution path.
 
-As you can see there is more to coding in this problem domain than just coding itself. While writing every line of code, you have to keep in mind what is really happening behind the scenes.
+As you can see there is more to coding in this problem domain than just coding itself. While writing every line of code, 
+you have to keep in mind what is really happening behind the scenes.
 
-One last piece of advice: Don't just take anything for granted. Perform benchmarks on different approaches and look at how they differ and why. Not only will you learn something, but you will eventually find the best solution for your problem.
+One last piece of advice: Don't just take anything for granted. Perform benchmarks on different approaches and look at how 
+they differ and why. Not only will you learn something, but you will eventually find the best solution for your problem.
 
 
 
