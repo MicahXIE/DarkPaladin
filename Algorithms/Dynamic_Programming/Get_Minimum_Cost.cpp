@@ -46,6 +46,8 @@ int solution(std::vector <int> &v)
 	if (v.size() <= 3) return v.size() * 2;
 	if (v.size() >= 23) return 25;
 
+    // stInd vector position flag
+    // vdind deque position flag
 	int stInd = 0;
 	int vdind = 0;
 
@@ -53,6 +55,7 @@ int solution(std::vector <int> &v)
 
 	for (size_t i = 1; i < v.size(); ++i)
 	{
+		// find the max consecutive days
 		if (vdecs[vdind].size() >= 3 &&
 			vdecs[vdind].size() <= 6 &&
 			v[i] - v[stInd] > 6 &&
@@ -83,13 +86,15 @@ int solution(std::vector <int> &v)
 	int decCnt = 0;
 	for (auto i = vdecs.cbegin(); i != vdecs.cend(); ++i)
 	{
+		// calculate the number of seven days tickets price
 		if (i->size() >= 4) {
 			result += 7;
 			decCnt += i->size();
 		}
 
 	}
-
+       
+    // add the number of two days tickets price
 	result += (v.size() - decCnt) * 2;
 
 }
