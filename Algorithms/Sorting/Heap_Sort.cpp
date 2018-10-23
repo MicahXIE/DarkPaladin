@@ -8,6 +8,8 @@
 希尔排序：算法的复杂度为n的1.2次幂
 
 堆排序：
+完全二叉树，最适用找出数组中前几个最大／最小值
+
 i节点的父节点 parent(i) = floor((i-1)/2)
 i节点的左子节点 left(i) = 2i + 1
 i节点的右子节点 right(i) = 2i + 2
@@ -58,13 +60,22 @@ void max_heapify(vector<int> &nums, int beg, int end) {
 	}
 }
 
-//build max heap
 void heap_sort(vector<int> &nums){
 	int n = nums.size();
+
+	//build max heap
 	for(int i = n/2 - 1; i >= 0; i--) {
 		max_heapify(nums, i, nums.size()-1);
 	}
 
+	/*
+	for(auto hp_iter = nums.begin(); hp_iter != nums.end(); hp_iter++){
+		cout << *hp_iter << " ";
+	}
+	cout << endl;
+	*/
+
+	//heap sort
 	for(int i=n-1; i>0; i--){
 		int temp = nums[i];
 		nums[i] = nums[0];
