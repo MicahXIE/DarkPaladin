@@ -4,7 +4,7 @@
 选择排序：O(n*n)
 快速排序：平均时间复杂度log2(n)*n，所有内部排序方法中最高好的，大多数情况下总是最好的。
 归并排序：log2(n)*n.
-堆排序：log2(n)*n.
+堆排序：O(n*log(2n)).  
 希尔排序：算法的复杂度为n的1.2次幂
 
 堆排序：
@@ -23,6 +23,10 @@ i节点的右子节点 right(i) = 2i + 2
 
 堆排序（HeapSort）：重复执行2，直到所有根节点都已移除。
 
+
+堆排序：O(n*log(2n)). T(n) <= O(n) + (n-1)*O(log(2n)) = O(n*log(2n))
+构造最大堆 O(n)
+n-1次调整堆 (n-1)*O(log(2n))
 
 reference:
 http://yansu.org/2015/09/07/sort-algorithms.html
