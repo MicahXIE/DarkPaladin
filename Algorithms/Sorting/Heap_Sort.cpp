@@ -37,13 +37,23 @@ https://www.cnblogs.com/MOBIN/p/5374217.html
 
 using namespace std;
 
+//debug usage
+void print_vec(vector<int> &nums){
+
+	for(auto hp_iter = nums.begin(); hp_iter != nums.end(); hp_iter++){
+		cout << *hp_iter << " ";
+	}
+	cout << endl;
+
+}
+
 //max heapify
 void max_heapify(vector<int> &nums, int beg, int end) {
 	int curr = beg;
 	int child = curr * 2 + 1;
 
 	while (child < end) {
-		if(child + 1 < end && nums[child] < nums[child+1]) {
+		if(child + 1 <= end && nums[child] < nums[child+1]) {
 			child++;
 		}
 
@@ -68,25 +78,28 @@ void heap_sort(vector<int> &nums){
 		max_heapify(nums, i, nums.size()-1);
 	}
 
-	/*
-	for(auto hp_iter = nums.begin(); hp_iter != nums.end(); hp_iter++){
-		cout << *hp_iter << " ";
-	}
+	print_vec(nums);
+
 	cout << endl;
-	*/
+	
 
 	//heap sort
 	for(int i=n-1; i>0; i--){
 		int temp = nums[i];
 		nums[i] = nums[0];
 		nums[0] = temp;
-		max_heapify(nums, 0, i);
+
+		print_vec(nums);
+		
+		max_heapify(nums, 0, i-1);
 	}
+
+	cout << endl;
 }
 
 
 int main(){
-	int a[] = {20,50,20,40,70,10,80,30,60};
+	int a[] = {20,50,20,40,70,10,60,30,80};
 	vector<int> v;
 	v.insert(v.begin(), a, a+9);
 	heap_sort(v);
