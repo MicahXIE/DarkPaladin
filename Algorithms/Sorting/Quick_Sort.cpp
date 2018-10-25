@@ -44,8 +44,11 @@ int partition(int a[], int start, int end){
 void quickSort(int a[], int start, int end){
 	int pos = 0;
 	if(start < end){
+		//find the pos of partition element
 		pos = partition(a, start, end);
+		//partition element left side
 		quickSort(a, start, pos-1);
+		//partition element right side
 		quickSort(a, pos+1, end);
 	}
 
