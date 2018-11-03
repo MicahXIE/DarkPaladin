@@ -43,8 +43,11 @@ https://blog.csdn.net/qq_25973267/article/details/50405616
 
 #include <stdio.h> 
 #include <iostream>
-  
-int josephus(int n, int m) 
+#include <list>
+using namespace std;
+
+//time complexsity: O(n)
+int josephus_solution1(int n, int m) 
 { 
   if (n == 1) 
     return 0; 
@@ -52,15 +55,55 @@ int josephus(int n, int m)
     /* The position returned by josephus(n - 1, k) is adjusted because the 
        recursive call josephus(n - 1, k) considers the original position  
        k%n + 1 as position 1 */
-    return (josephus(n - 1, m) + m) % n; 
+    return (josephus_solution1(n - 1, m) + m) % n; 
 }
+
+
+//time complexsity: O(n*m)
+int josephus_solution2(int n, int m)
+{
+	if(n < 1 || m < 1)
+		return -1;
+
+	list<int> jlist;
+
+	for(int i=0; i<n; i++){
+		jlist.push_back(i);
+
+	}
+
+	auto jiter = jlist.begin();
+
+	while(jlist.size() > 1){
+		for(int j=0; j<m-1; j++){
+			jiter++;
+			if(jiter == jlist.end()){
+				jiter = jlist.begin();
+			}
+		}
+
+		auto jiter_del = jiter;
+
+		if(++jiter == jlist.end()){
+			jiter = jlist.begin();
+		}
+
+		jlist.erase(jiter_del);
+	}
+
+	return *jiter;
+
+}
+
 
 // Driver Program to test above function 
 int main() 
 { 
   int n = 14; 
   int m = 2; 
-  printf("The chosen place is %d\n", josephus(n, m)+1); 
+  printf("The chosen place is %d\n", josephus_solution1(n, m)+1);
+  printf("The chosen place is %d\n", josephus_solution2(n, m)+1); 
+
   return 0; 
 } 
 
