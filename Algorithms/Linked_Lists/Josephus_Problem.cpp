@@ -26,6 +26,16 @@ seq 2: 1, 2, 3, 4, ... , k-1, k+1, ..., n-2, n-1, n
 seq 3: k+1, k+2, k+3, ..., n-2, n-1, n, 1, 2, 3, .., k-2, k-1
 seq 4: 1, 2, 3, 4, ... , 7, 8, ..., n-2, n-1
 
+∵ k = m%n; 　　
+
+∴ x' = x+k = x+ m%n ; 而 x+ m%n 可能大于n
+
+∴x'= (x+ m%n)%n = (x+m)%n 　　
+
+得到 x' is the value start from 0. final result need to add 1
+
+https://blog.csdn.net/qq_25973267/article/details/50405616
+
 */
 
 
@@ -34,23 +44,23 @@ seq 4: 1, 2, 3, 4, ... , 7, 8, ..., n-2, n-1
 #include <stdio.h> 
 #include <iostream>
   
-int josephus(int n, int k) 
+int josephus(int n, int m) 
 { 
   if (n == 1) 
-    return 1; 
+    return 0; 
   else
     /* The position returned by josephus(n - 1, k) is adjusted because the 
        recursive call josephus(n - 1, k) considers the original position  
        k%n + 1 as position 1 */
-    return (josephus(n - 1, k) + k-1) % n + 1; 
+    return (josephus(n - 1, m) + m) % n; 
 }
 
 // Driver Program to test above function 
 int main() 
 { 
-  int n = 5; 
-  int k = 2; 
-  printf("The chosen place is %d\n", josephus(n, k)); 
+  int n = 14; 
+  int m = 2; 
+  printf("The chosen place is %d\n", josephus(n, m)+1); 
   return 0; 
 } 
 
