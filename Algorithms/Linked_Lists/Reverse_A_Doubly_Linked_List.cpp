@@ -135,6 +135,10 @@ int main()
 
         int llist_count;
         cin >> llist_count;
+        // This line ignores the rest of the current line, up to '\n' or EOF - whichever comes first:
+        // '\n' sets the delimiter, i.e. the character after which cin stops ignoring
+        // numeric_limits<streamsize>::max() sets the maximum number of characters to ignore. 
+        //跳过部分输入，直到输入一个回车符，或者跳过的字符超过 std::numeric_limits<std::streamsize>::max() 所定义的数量
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         for (int i = 0; i < llist_count; i++) {
