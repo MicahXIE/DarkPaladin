@@ -122,6 +122,42 @@ DoublyLinkedListNode* reverse(DoublyLinkedListNode* head) {
 
 }
 
+/*
+ * For your reference:
+ *
+ * SingleLinkedListNode {
+ *     int data;
+ *     SingleLinkedListNode* next;
+ * };
+ *
+ */
+/*
+SingleLinkedListNode* reverse(SingleLinkedListNode* head) {
+    if(head == NULL || head->next == NULL){
+        return head;
+    }
+    
+    SingleLinkedListNode* prev = NULL;
+    SingleLinkedListNode* next = NULL;
+    SingleLinkedListNode* iter = head;
+    
+    while(iter != NULL){
+        if(iter->next == NULL){
+            head = iter;
+        }
+
+        next = iter->next;
+        iter->next = prev;
+        prev = iter;
+        iter = next;
+        
+    }
+    
+    return head;
+
+}
+*/
+
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
