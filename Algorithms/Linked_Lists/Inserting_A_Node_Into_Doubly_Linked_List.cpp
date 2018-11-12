@@ -60,7 +60,6 @@ void free_doubly_linked_list(DoublyLinkedListNode* node) {
     }
 }
 
-
 // Complete the sortedInsert function below.
 
 /*
@@ -81,47 +80,39 @@ DoublyLinkedListNode* sortedInsert(DoublyLinkedListNode* head, int data) {
         return node;    
     }
     
-    DoublyLinkedListNode* tmp = head;
-    
-    while(tmp->next != NULL){
+    if(data < head->data){
+        node->next = head;
+        head->prev = node;
+        return node;
+    } else {
         
-        if(tmp->data >= data){
-            node->next = tmp;
-            node->prev = tmp->prev;
-            tmp->prev = node;
+        DoublyLinkedListNode* prev_node = NULL;
+        DoublyLinkedListNode* cur_node = head;
+        
+        while(cur_node != NULL){
             
-            if(tmp == head){
-                head = node;
+            if(cur_node->data >= data){
+                node->next = cur_node;
+                node->prev = prev_node;
+                prev_node->next = node;
+                cur_node->prev = node;
+                
+                return head;
             }
             
-            return head;
+            prev_node = cur_node;
+            cur_node = cur_node->next;
         }
         
-        tmp = tmp->next;
-    }
-    
-   if(tmp->next == NULL){
-        if(tmp->data >= data){
-            node->next = tmp;
-            node->prev = tmp->prev;
-            tmp->prev = node;
-            
-            if(tmp == head){
-                head = node;
-            }
-            
-        } else {
-            node->next = tmp->next;
-            node->prev = tmp;
-            tmp->next = node;    
-        }    
+        node->prev = prev_node;
+        prev_node->next = node;
+        
+        return head;
     }
     
     return head;
 
-
 }
-
 
 int main()
 {
