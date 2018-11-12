@@ -1,3 +1,6 @@
+// 1<->3<->4<->10->NULL
+// 1<->3<->4<->5<->10->NULL
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -94,6 +97,7 @@ DoublyLinkedListNode* sortedInsert(DoublyLinkedListNode* head, int data) {
             if(cur_node->data >= data){
                 node->next = cur_node;
                 node->prev = prev_node;
+                //need to consider both previous and next nodes!
                 prev_node->next = node;
                 cur_node->prev = node;
                 
