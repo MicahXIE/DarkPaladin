@@ -1,0 +1,9 @@
+1. C++11 and C++14 topics include:
+(1) The pros and cons of braced initialization,noexcept speci cations, perfect forwarding, and smart pointer make functions
+(2) The relationships among std::move,std::forward,rvalue references, and universal references
+(3) Techniques for writing clear,correct,effective lambda expressions
+(4) How std::atomic differs from volatile, how each should be used, and how they relate to C++'s concurrency API
+(5) How best practices in "old" C++ programming(i.e.,C++98) require revision for software development in modern C++
+
+auto, range-based for loops, lambda, rvalue referece, concurrency, smart pointers, moving vs copying, std::atomic vs volatile
+
