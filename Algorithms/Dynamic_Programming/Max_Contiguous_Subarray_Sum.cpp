@@ -34,7 +34,8 @@ int kadane(int arr[], int n){
 
 
 int main(){
-	//int arr[] = {-8, -3, -6, -2, -5, -4};
+	//int arr[] = {-8, -3, -6, -2, -5, -4};  
+	//int arr[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 	int arr[] = {-2, 3, 2, -1};
 	int n = sizeof(arr)/sizeof(int);
 
