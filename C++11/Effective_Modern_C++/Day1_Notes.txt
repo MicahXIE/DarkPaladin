@@ -7,3 +7,32 @@
 
 auto, range-based for loops, lambda, rvalue referece, concurrency, smart pointers, moving vs copying, std::atomic vs volatile
 
+2. C++ version 
+
+C++98, C++03, C++11, C++14
+
+Comparision:
+
+C++98 
+(1) lacks support for concurrency
+
+
+C++11 
+(1) supports lambda expressions
+(2) pervasive feature is move semantics
+
+example:
+Widget: small devices
+
+void someFunc(Widget w)
+
+Widget wid;
+someFunc(wid);				// w is copy of wid created via copy construction
+someFunc(std::move(wid));	// w is copy of wid created via move construction
+
+
+
+C++14 
+(1) offers generalized function return type deduction
+
+
