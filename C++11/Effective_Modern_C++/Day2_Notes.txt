@@ -1,0 +1,29 @@
+Deducing Types
+
+1. deducing types:
+C++98: function templates
+C++11: add auto and decltype
+
+2. function template
+
+template<typename T>
+void f(ParamType param);
+
+f(expr);
+
+adornments: e.g., const or reference qualifiers
+
+e.g.
+template<typename T>
+void f(const T& param)
+
+int x = 0;
+f(x);
+
+T is deduced to be int, but ParamType is deduced to be const int&
+
+The type deduced for T is dependent not just on the type of expr, but also on the form
+of ParamValue. There are three cases:
+
+
+
