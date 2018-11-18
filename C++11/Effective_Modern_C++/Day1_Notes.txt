@@ -31,6 +31,21 @@ someFunc(wid);				// w is copy of wid created via copy construction
 someFunc(std::move(wid));	// w is copy of wid created via move construction
 
 
+rhs: right hand side
+lhs: left hand side
+
+perfect forwarding
+func's signature: parameters and return types
+
+noexcept and constexpr
+
+std::auto_ptr deprecated in C++11, because std::unique_ptr does the same job and better
+
+smart pointer:
+std::weak_ptr etc.
+
+
+
 
 C++14 
 (1) offers generalized function return type deduction
