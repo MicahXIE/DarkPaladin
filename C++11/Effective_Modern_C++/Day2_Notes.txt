@@ -27,3 +27,90 @@ of ParamValue. There are three cases:
 
 
 
+Case 1: ParamType is a Reference or Pointer, but not a Universal Reference
+
+(1) if expr's type is a reference, ignore the reference part
+(2) Then pattern-match expr's type against ParamType to determine T
+
+e.g 1
+template<typename T>
+void f(T& param);
+
+int x = 27;
+const int cx = x;
+const int& rx = x;
+
+f(x)	// T is int, param type is int&
+f(cx)	// T is const int, param's type is const int&
+f(rx)	// T is const int, param's type is const int&
+
+e.g 2
+template<typename T>
+void f(T* param)
+
+int x = 27;
+const int *px = &x;
+
+f(&x);	// T is int, param's type is int*
+f(px);	// T is const int, param's type is const int*
+
+
+Case 2: ParamType is a Universal Reference
+
+lvalue and rvalue
+
+e.g
+template<typename T>
+void f(T&& param);			//param is a universal reference
+
+int x = 27;
+const int cx = x;
+const int& rx = x;
+
+f(x);	// x is lvalue, so T is int&, param's type is int&
+f(cx);	// cx is lvalue, so T is const int&, param's type is also const int&
+f(rx);	// rx is lvalue, so T is const int&, param's type is also const int&
+f(27);	// 27 is rvalue, so T is int, param's type is int&&
+
+
+
+Case 3: ParamType is Neither a pointer nor a reference
+
+(1) As before, if expr's type is a reference, ignore the reference part
+(2) If, after ignoring expr's reference-ness, expr is const, ignore that, too.
+If it's volatile, also ignore that. (volatile objects are uncommon. They are 
+generally used only for implementing devices drivers)
+
+
+template<typename T>
+void f(T param)
+
+int x = 27;
+const int cx = x;
+const int& rx = x;
+
+f(x);	// T's and param's type are both int
+f(cx);	// T's and param's types are both int
+f(rx);	// T's and param's types are both int
+
+
+const vs volatile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
