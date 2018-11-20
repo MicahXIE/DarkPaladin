@@ -197,10 +197,13 @@ Things to Remember
 • C++14 supports decltype(auto), which, like auto, deduces a type from its initializer, but it performs the type deduction using the decltype rules.
 
 
+std::cout << typeid(x).name() << '\n'; // display types for 
+std::cout << typeid(y).name() << '\n'; // x and y
 
 
-
-
+Things to Remember
+• Deduced types can often be seen using IDE editors, compiler error messages, and the Boost TypeIndex library.
+• The results of some tools may be neither helpful nor accurate, so an under‐ standing of C++’s type deduction rules remains essential.
 
 
 
