@@ -22,6 +22,7 @@ f(x);
 
 T is deduced to be int, but ParamType is deduced to be const int&
 
+3. 
 The type deduced for T is dependent not just on the type of expr, but also on the form
 of ParamValue. There are three cases:
 
@@ -97,13 +98,103 @@ f(rx);	// T's and param's types are both int
 const vs volatile
 
 
+4. 
+auto type deduction is template type deduction. 
+
+
+template<typename T>
+void f(ParamType param);
+
+f(expr);
+
+Case 1 & 3:
+auto x = 27;
+const auto cx = x;
+const auto& rx = x;
+
+Case 2:
+auto&& uref1 = x;	//lvalue, int&
+auto&& uref2 = cx;	//lvalue, int&
+auto&& uref3 = 27;	//rvalue, int&&
+
+
+const char name[] = "R. N. Briggs";
+auto arr1 = name;	// arr1 type is const char*	
+auto& arr2 = name;	// arr2 type is const char(&) [13]
+
+C++98:
+int x1 = 27;
+int x2(27);
+
+C++11 support uniform normalization
+int x3 = { 27 };
+int x4{ 27 };
+
+auto x1 = 27	// type is int, value is 27
+auto x2(27)		// ditto
+
+auto x3 = { 27 };	// type is std::initializer_list<int>
+auto x4{ 27 };		// ditto
+
+
+template<typename T>
+void f(std::initializer_list<T> initList);	//be careful
+
+f({11, 23, 9});			//	T deduced as int, initList type is std::initializer_list
+
+So the only real difference between auto and template type deduction is that auto assumes that a braced initializer represents a std::initializer_list, but template type deduction doesn’t.
+
+
+Things to remember:
+• auto type deduction is usually the same as template type deduction, but auto type deduction assumes that a braced initializer represents a std::initial izer_list, and template type deduction doesn’t.
+• auto in a function return type or a lambda parameter implies template type deduction, not auto type deduction.
+
+
+
+5.
+Given a name or an expression, decltype tells you the name’s or the expression’s type. 
+
+e.g.
+const int i=0;		//	decltype(i) is const int
+vector<int> v;		//	decltype(v) is vector<int>
+v[0]				//  decltype(v[0]) is int&
+bool f(const Widget& w);	// decltype(w) is const Widget&
+							// decltype(f) is bool(const Widget&)
+
+
+
+template<typename Container, typename Index>
+decltype(auto) authAndAccess(Container& c, Index i);
+
+The use of decltype(auto) is not limited to function return types.
+
+C++11:
+template<typename Container, typename Index>
+auto
+authAndAccess(Container&& c, Index i)
+-> decltype(std::forward<Container>(c)[i])
+{
+  authenticateUser();
+  return std::forward<Container>(c)[i];
+}
+
+
+C++14:
+
+template<typename Container, typename Index>
+decltype(auto)
+authAndAccess(Container&& c, Index i)
+{
+  authenticateUser();
+return std::forward<Container>(c)[i]; }
 
 
 
 
-
-
-
+Things to Remember
+• decltype almost always yields the type of a variable or expression without any modifications.
+• For lvalue expressions of type T other than names, decltype always reports a type of T&.
+• C++14 supports decltype(auto), which, like auto, deduces a type from its initializer, but it performs the type deduction using the decltype rules.
 
 
 
