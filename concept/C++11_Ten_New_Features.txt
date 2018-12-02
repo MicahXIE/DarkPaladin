@@ -1,0 +1,510 @@
+1. auto
+C++11 auto will deduce the variable type
+
+auto i = 42;  // i is an int
+auto l = 42LL;  // l is a long long
+auto p = new foo();  // p is a foo*
+
+std::map<std::string, std::vector<int>>map;
+for(auto it=begin(map); it!=end(map); ++it){
+	
+}
+
+template<typename T1, typename T2>
+auto compose(T1 t1, T2 t2) -> decltype(t1 + t2)
+{
+	return t1+t2;
+}
+auto v = compose(2, 3.14);
+
+notes:
+auto usually can't be used as return value, but can be used as above
+auto for iterator
+auto for function
+
+
+2. nullptr
+std::nullptr_t nullptr
+
+implicit conversion for any pointer type variable and bool value.
+but can't be converted to integer.
+
+solve the issue: NULL and Zero can be implicitly converted.
+
+
+e.g
+
+void foo(int* p) {}
+void bar(std::shared_ptr<int> p) {}
+
+foo(nullptr)
+bar(nullptr)
+
+int* p1 = NULL;
+int* p2 = nullptr;
+if(p1 == p2){}
+
+bool f = nullptr;
+int i = nullptr; //error
+
+
+
+
+3. Range-based for loops
+
+similar: foreach
+
+std::map<std::string, std::vector<int>> map;
+std::vector<int> v;
+v.push_back(1);
+v.push_back(2);
+v.push_back(3);
+map["one"] = v;
+
+for(const auto& kvp : map){
+	std::cout << kvp.first << std::endl;
+	for(auto v : kvp.second){
+	    std::cout << v << std::endl;
+	}
+}
+
+int arr[] = {1,2,3,4,5};
+for(int& e : arr){
+	e = e*e;
+}
+
+基于范围的FOR循环的遍历是只读的遍历，除非将变量变量的类型声明为引用类型。
+
+std::map<string, int> map = {{"a", 1}, {"b", 2}, {"c", 3}};
+for (auto& val : map)
+	cout << val.first << "->" << val.second <<endl;
+
+在遍历容器的时候，auto自动推导的类型是容器的value_type类型，而不是迭代器，而map中的value_type是std::pair，也就是说val的类型是std::pair类型的，因此需要使用val.first,val.second来访问数据。
+
+
+
+4. Override and Final
+
+overload but not override
+
+class B
+{
+public:
+    virtual void f(short) {std:cout << "B::f" << std::endl;}
+};
+
+class D: public B
+{
+public:
+    virtual void f(int) {std::cout << "D::f" << std::endl;}
+};
+
+// question override or overload for below
+class B
+{
+public:
+    virtual void f(int) const {std:cout << "B::f" << std::endl;}
+};
+
+class D: public B
+{
+public:
+    virtual void f(int) {std::cout << "D::f" << std::endl;}
+};
+
+C++11 new features:
+
+override，表示函数应当重写基类中的虚函数。
+final，表示派生类不应当重写这个虚函数。
+
+e.g
+1)
+class B
+{
+public:
+    virtual void f(short) {std:cout << "B::f" << std::endl;}
+};
+
+class D: public B
+{
+public:
+    virtual void f(int) override {std::cout << "D::f" << std::endl;}
+};
+
+report error: 'D::f' method with override specifier 'override' did not 
+override any base class methods
+
+
+
+
+2）
+
+class B 
+{
+public:
+   virtual void f(int) {std::cout << "B::f" << std::endl;}
+};
+ 
+class D : public B
+{
+public:
+   virtual void f(int) override final {std::cout << "D::f" << std::endl;}
+};
+ 
+class F : public D
+{
+public:
+   virtual void f(int) override {std::cout << "F::f" << std::endl;}
+};
+
+report error D::f can't be override since it is specified as final
+
+
+
+5. Strongly-typed enums
+control the variable scope and avoid conflict
+
+enum class Options {None, One, All};
+Options o = Options::All
+
+
+
+6. Smart Pointer
+
+1) unique_ptr: no need to share the memory resources but can be transferred to another unique_ptr by using move constructor.
+
+2) shared_ptr: need to share the memory resources.
+
+3) weak_ptr: use to break the dependency loop. 
+weak_ptr是shared_ptr的黄金伙伴。从上文知道shared_ptr与shared_ptr之间，每拷贝一次，引用计数就会+1，而如果使用weak_ptr则不会出现这个现象。
+
+auto_ptr won't be used in C++11
+
+// unique_ptr
+
+e.g
+
+#include<iostream>
+#include<memory>
+#include<utility>
+
+void foo(int* p){
+    std::cout << *p << std::endl;
+}
+
+int main(){
+    std::unique_ptr<int> p1(new int(42));
+    std::unique_ptr<int> p2 = std::move(p1);
+    
+
+    // after move, p1->nullptr and p2-> (42)
+    if(p1)
+       foo(p1.get());
+    
+    (*p2)++;
+   
+    if(p2)
+       foo(p2.get());
+}
+
+// g++ --std=c++11 unique_ptr_test.cpp -o unique_ptr_test
+// 43
+
+
+// shared_ptr
+
+e.g
+
+#include<iostream>
+#include<memory>
+#include<utility>
+
+void foo(int* p){
+    std::cout << *p << std::endl;
+}
+
+void bar(std::shared_ptr<int> p){
+	++(*p);
+}
+
+int main(){
+    std::shared_ptr<int> p1(new int(42));
+    std::shared_ptr<int> p2 = p1;
+    // more safe
+    auto p3 = std::make_shared<int>(42);
+
+    bar(p1);
+    foo(p2.get());
+    foo(p3.get());
+}
+
+// g++ --std=c++11 shared_ptr_test.cpp -o shared_ptr_test
+// 43
+
+
+std::shared_ptr<int> p1(new int(42));
+=>
+auto p3 = std::make_shared<int>(42);
+
+
+// weak_ptr
+
+
+#include<iostream>
+#include<memory>
+#include<utility>
+
+int main(){
+
+    auto p = std::make_shared<int>(42);
+    std::weak_ptr<int> wp = p;
+
+    auto sp = wp.lock();
+    std::cout << *sp << std::endl;
+
+    p.reset();
+
+    if(wp.expired())
+        std::cout << "expired" << std::endl;
+}
+
+
+// g++ --std=c++11 weak_ptr_test.cpp -o weak_ptr_test
+// 42
+
+
+7. Lambda
+
+Functional Programming Language
+
+// Fibonacci
+std::function<int(int)> lfib = [&lfib](int n) {return n < 2 ? 1 : lfib(n-1)+lfib(n-2);};
+
+anonymous function
+
+C++11提供了对匿名函数的支持,称为Lambda函数(也叫Lambda表达式). Lambda表达式具体形式如下:
+
+　　　　[capture](parameters)->return-type{body}
+
+　　如果没有参数,空的圆括号()可以省略.返回值也可以省略,如果函数体只由一条return语句组成或返回类型为void的话.形如:
+
+　　 　 [capture](parameters){body}
+
+[](int x, int y) { return x + y; } // 隐式返回类型
+[](int& x) { ++x; }   // 没有return语句 -> lambda 函数的返回类型是'void'
+[]() { ++global_x; }  // 没有参数,仅访问某个全局变量
+[]{ ++global_x; }     // 与上一个相同,省略了()
+
+[](int x, int y) -> int { int z = x + y; return z; }
+
+
+[]        //未定义变量.试图在Lambda内使用任何外部变量都是错误的.
+[x, &y]   //x 按值捕获, y 按引用捕获.
+[&]       //用到的任何外部变量都隐式按引用捕获
+[=]       //用到的任何外部变量都隐式按值捕获
+[&, x]    //x显式地按值捕获. 其它变量按引用捕获
+[=, &z]   //z按引用捕获. 其它变量按值捕获
+
+eval
+
+lambda vs inline
+
+
+以前，在lambda表达式没有进入标准的时候，对容器的遍历等涉及到使用函数指针的情况，一般人会懒得使用std::for_each，或std::transform，也许只是一个短短的几句话，却要单独写个函数，或函数对象，写的代码反而不如自己用for循环来的快。
+但是，C++11引入了lambda表达式后，一切都变的简单了！
+
+
+8. non-member begin() and end()
+
+template <typename Iterator>
+void bar(Iterator begin, Iterator end)
+{
+std::for_each(begin, end, [](int n) {std::cout << n << std::endl;});
+ 
+auto is_odd = [](int n) {return n%2==1;};
+auto pos = std::find_if(begin, end, is_odd);
+if(pos != end)
+std::cout << *pos << std::endl;
+}
+ 
+template <typename C>
+void foo(C c)
+{
+bar(std::begin(c), std::end(c));
+}
+ 
+template <typename T, size_t N>
+void foo(T(&arr)[N])
+{
+bar(std::begin(arr), std::end(arr));
+}
+ 
+int arr[] = {1,2,3};
+foo(arr);
+ 
+std::vector<int> v;
+v.push_back(1);
+v.push_back(2);
+v.push_back(3);
+foo(v);
+
+
+
+9. static_assert and type traits
+
+static_assert提供一个编译时的断言检查。如果断言为真，什么也不会发生。如果断言为假，编译器会打印一个特殊的错误信息。
+
+下面这段代码原本期望只做用于整数类型。
+
+template <typename T1, typename T2>
+auto add(T1 t1, T2 t2) -> decltype(t1 + t2)
+{
+return t1 + t2;
+}
+
+==>
+
+std::cout << add(1, 3.14) << std::endl;
+std::cout << add("one", 2) << std::endl;
+
+程序会打印出4.14和”e”。但是如果我们加上编译时断言，那么以上两行将产生编译错误。
+
+
+template <typename T1, typename T2>
+auto add(T1 t1, T2 t2) -> decltype(t1 + t2)
+{
+   static_assert(std::is_integral<T1>::value, "Type T1 must be integral");
+   static_assert(std::is_integral<T2>::value, "Type T2 must be integral");
+ 
+   return t1 + t2;
+}
+
+
+10. Move semantics
+
+
+C++11加入了右值引用(rvalue reference)的概念（用&&标识），用来区分对左值和右值的引用。左值就是一个有名字的对象，而右值则是一个无名对象（临时对象）。move语义允许修改右值（以前右值被看作是不可修改的，等同于const T&类型）。
+
+
+C++的class或者struct以前都有一些隐含的成员函数：默认构造函数（仅当没有显示定义任何其他构造函数时才存在），拷贝构造函数，析构函数还有拷贝赋值操作符。拷贝构造函数和拷贝赋值操作符提供bit-wise的拷贝（浅拷贝），也就是逐个bit拷贝对象。
+
+
+如果你用来初始化或拷贝的源对象是个右值（临时对象）会怎么样呢？你仍然需要拷贝它的值，但随后很快右值就会被释放。这意味着产生了额外的操作开销，包括原本并不需要的空间分配以及内存拷贝。
+
+
+e.g
+
+template <typename T>
+class Buffer 
+{
+   std::string          _name;
+   size_t               _size;
+   std::unique_ptr<T[]> _buffer;
+ 
+public:
+   // default constructor
+   Buffer():
+      _size(16),
+      _buffer(new T[16])
+   {}
+ 
+   // constructor
+   Buffer(const std::string& name, size_t size):
+      _name(name),
+      _size(size),
+      _buffer(new T[size])
+   {}
+ 
+   // copy constructor
+   Buffer(const Buffer& copy):
+      _name(copy._name),
+      _size(copy._size),
+      _buffer(new T[copy._size])
+   {
+      T* source = copy._buffer.get();
+      T* dest = _buffer.get();
+      std::copy(source, source + copy._size, dest);
+   }
+ 
+   // copy assignment operator
+   Buffer& operator=(const Buffer& copy)
+   {
+      if(this != ©)
+      {
+         _name = copy._name;
+ 
+         if(_size != copy._size)
+         {
+            _buffer = nullptr;
+            _size = copy._size;
+            _buffer = _size > 0 > new T[_size] : nullptr;
+         }
+ 
+         T* source = copy._buffer.get();
+         T* dest = _buffer.get();
+         std::copy(source, source + copy._size, dest);
+      }
+ 
+      return *this;
+   }
+ 
+   // move constructor
+   Buffer(Buffer&& temp):
+      _name(std::move(temp._name)),
+      _size(temp._size),
+      _buffer(std::move(temp._buffer))
+   {
+      temp._buffer = nullptr;
+      temp._size = 0;
+   }
+ 
+   // move assignment operator
+   Buffer& operator=(Buffer&& temp)
+   {
+      assert(this != &temp); // assert if this is not a temporary
+ 
+      _buffer = nullptr;
+      _size = temp._size;
+      _buffer = std::move(temp._buffer);
+ 
+      _name = std::move(temp._name);
+ 
+      temp._buffer = nullptr;
+      temp._size = 0;
+ 
+      return *this;
+   }
+};
+ 
+template <typename T>
+Buffer<T> getBuffer(const std::string& name) 
+{
+   Buffer<T> b(name, 128);
+   return b;
+}
+int main()
+{
+   Buffer<int> b1;
+   Buffer<int> b2("buf2", 64);
+   Buffer<int> b3 = b2;
+   Buffer<int> b4 = getBuffer<int>("buf4");
+   b1 = getBuffer<int>("buf5");
+   return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
