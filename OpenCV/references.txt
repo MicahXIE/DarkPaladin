@@ -1,0 +1,38 @@
+1.https://github.com/GeorgeSeif/Face-Recognition
+2.http://eyalarubas.com/face-detection-and-recognition.html
+https://github.com/EyalAr/Person-Recognizer
+https://segmentfault.com/a/1190000000711132
+
+macports for gcc
+https://www.ficksworkshop.com/blog/installing-gcc-on-mac
+
+http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html
+http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/usr.html
+
+https://medium.com/@jaskaranvirdi/setting-up-opencv-and-c-development-environment-in-xcode-b6027728003
+
+https://apple.stackexchange.com/questions/51036/what-is-the-difference-between-bash-profile-and-bashrc
+
+g++ $(pkg-config --cflags --libs opencv) -std=c++11 main.cpp -o main
+
+dyld: Library not loaded: /usr/local/opt/glog/lib/libglog.0.3.5.dylib
+  Referenced from: /usr/local/opt/opencv/lib/libopencv_sfm.3.4.dylib
+  Reason: image not found
+Abort trap: 6
+
+brew install harfbuzz
+brew install glog
+
+'array' file not found
+cvdef.h
+
+https://medium.com/@jaskaranvirdi
+
+https://www.google.com.sg/amp/s/www.learnopencv.com/how-to-compile-opencv-sample-code/amp/
+
+g++ -ggdb `pkg-config --cflags --libs opencv` -stdlib=libstdc++ facedetect.cpp -o facedetect
+
+https://stackoverflow.com/questions/49803447/opencv-undefined-symbols-for-architecture-cvimwrite-mac-osx-high-sierra
+
+clang++ $(pkg-config --cflags --libs opencv) detect_face.cpp -o detect_face
+clang++ $(pkg-config --cflags --libs opencv) main.cpp -o main

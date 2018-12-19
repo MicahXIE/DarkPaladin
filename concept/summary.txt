@@ -134,6 +134,304 @@ http://www.runoob.com/w3cnote/cpp-std-thread.html
 　　使用静态数据成员可以节省内存，因为它是所有对象所公有的，因此，对多个对象来说，静态数据成员只存储一处，供所有对象共用。静态数据成员的值对每个对象都是一样，但它的值是可以更新的。只要对静态数据成员的值更新一次，保证所有对象存取更新后的相同的值，这样可以提高时间效率。
 
 
+　　静态数据成员的使用方法和注意事项如下：
+
+　　1、静态数据成员在定义或说明时前面加关键字static。//静态变量的定义
+
+　　2、静态成员初始化与一般数据成员初始化不同。静态数据成员初始化的格式如下：
+
+　　　　<数据类型><类名>::<静态数据成员名>=<值>  //静态变量的初始化
+
+　　这表明：
+
+         (1) 初始化在类体外进行，而前面不加static，（这点需要注意）以免与一般静态变量或对象相混淆。
+
+　　(2) 初始化时不加该成员的访问权限控制符private，public等。
+
+　　(3) 初始化时使用作用域运算符来标明它所属类，因此，静态数据成员是类的成员，而不是对象的成员。
+
+　　3、静态数据成员是静态存储的，它是静态生存期，必须对它进行初始化。
+
+　　4、引用静态数据成员时，采用如下格式：
+
+　　　<类名>::<静态成员名>   //静态变量的使用方式
+
+　　如果静态数据成员的访问权限允许的话(即public的成员)，可在程序中，按上述格式来引用静态数据成员。
+
+
+
+https://www.cnblogs.com/ppgeneve/p/5091794.html
+
+
+
+7. Template
+
+
+(1)function template
+
+#include <iostream>
+#include <string>
+ 
+using namespace std;
+ 
+template <typename T>
+inline T const& Max (T const& a, T const& b) 
+{ 
+    return a < b ? b:a; 
+} 
+int main ()
+{
+ 
+    int i = 39;
+    int j = 20;
+    cout << "Max(i, j): " << Max(i, j) << endl; 
+ 
+    double f1 = 13.5; 
+    double f2 = 20.7; 
+    cout << "Max(f1, f2): " << Max(f1, f2) << endl; 
+ 
+    string s1 = "Hello"; 
+    string s2 = "World"; 
+    cout << "Max(s1, s2): " << Max(s1, s2) << endl; 
+ 
+   return 0;
+}
+
+
+(2)class template
+
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <string>
+#include <stdexcept>
+ 
+using namespace std;
+ 
+template <class T>
+class Stack { 
+  private: 
+    vector<T> elems;     // 元素 
+ 
+  public: 
+    void push(T const&);  // 入栈
+    void pop();               // 出栈
+    T top() const;            // 返回栈顶元素
+    bool empty() const{       // 如果为空则返回真。
+        return elems.empty(); 
+    } 
+}; 
+ 
+template <class T>
+void Stack<T>::push (T const& elem) 
+{ 
+    // 追加传入元素的副本
+    elems.push_back(elem);    
+} 
+ 
+template <class T>
+void Stack<T>::pop () 
+{ 
+    if (elems.empty()) { 
+        throw out_of_range("Stack<>::pop(): empty stack"); 
+    }
+    // 删除最后一个元素
+    elems.pop_back();         
+} 
+ 
+template <class T>
+T Stack<T>::top () const 
+{ 
+    if (elems.empty()) { 
+        throw out_of_range("Stack<>::top(): empty stack"); 
+    }
+    // 返回最后一个元素的副本 
+    return elems.back();      
+} 
+ 
+int main() 
+{ 
+    try { 
+        Stack<int>         intStack;  // int 类型的栈 
+        Stack<string> stringStack;    // string 类型的栈 
+ 
+        // 操作 int 类型的栈 
+        intStack.push(7); 
+        cout << intStack.top() <<endl; 
+ 
+        // 操作 string 类型的栈 
+        stringStack.push("hello"); 
+        cout << stringStack.top() << std::endl; 
+        stringStack.pop(); 
+        stringStack.pop(); 
+    } 
+    catch (exception const& ex) { 
+        cerr << "Exception: " << ex.what() <<endl; 
+        return -1;
+    } 
+}
+当上面的代码被编译和执行时，它会产生下列结果：
+
+7
+hello
+Exception: Stack<>::pop(): empty stack
+
+
+
+8. inline
+
+在c/c++中，为了解决一些频繁调用的小函数大量消耗栈空间（栈内存）的问题，特别的引入了inline修饰符，表示为内联函数。
+
+栈空间就是指放置程序的局部数据（也就是函数内数据）的内存空间。
+
+
+
+https://www.cnblogs.com/fnlingnzb-learner/p/6423917.html
+
+
+以下情况不宜使用内联： 
+（1）如果函数体内的代码比较长，使用内联将导致内存消耗代价较高。 
+（2）如果函数体内出现循环，那么执行函数体内代码的时间要比函数调用的开销大。
+
+
+9. C++ exception
+
+try总是与catch一同出现，伴随一个try语句，至少应该有一个catch()语句。try随后的block是可能抛出异常的地方。
+
+catch带有一个参数，参数类型以及参数名字都由程序指定，名字可以忽略，如果在catch随后的block中并不打算引用这个异常对象的话。参数类型可以是build-intype，例如int,long, char等，也可以是一个对象，一个对象指针或者引用。如果希望捕获任意类型的异常，可以使用“...”作为catch的参数。
+
+catch不一定要全部捕获tryblock中抛出的异常，剩下没有捕获的可以交给上一级函数处理。
+
+throw后面带一个类型的实例，它和catch的关系就象是函数调用，catch指定形参，throw给出实参。编译器按照catch出现的顺序以及catch指定的参数类型确定一个异常应该由哪个catch来处理。
+
+throw不一定非要出现在try随后的block中，它可以出现在任何需要的地方，只要最终有catch可以捕获它即可。即使在catch随后的block中，仍然可以继续throw。这时候有两种情况，一是throw一个新类型的异常，这与普通的throw一样。二是要rethrow当前这个异常，在这种情况下，throw不带参数即可表达。
+
+
+void mightThrow(); // could throw any exceptions.
+void doesNotThrow() noexcept; // does not throw any exceptions.
+
+
+
+10. virtual function
+
+A virtual function a member function which is declared within base class and is re-defined (Overriden) by derived class. When you refer to a derived class object using a pointer or a reference to the base class, you can call a virtual function for that object and execute the derived class's version of the function.
+
+https://www.cnblogs.com/weiyouqing/p/7544988.html
+
+
+C++的虚函数主要作用是“运行时多态”，父类中提供虚函数的实现，为子类提供默认的函数实现。
+
+　　子类可以重写父类的虚函数实现子类的特殊化。
+
+
+
+C++中包含纯虚函数的类，被称为是“抽象类”。抽象类不能使用new出对象，只有实现了这个纯虚函数的子类才能new出对象。
+C++中的纯虚函数更像是“只提供申明，没有实现”，是对子类的约束，是“接口继承”。
+C++中的纯虚函数也是一种“运行时多态”。
+
+
+如果基类定义的纯虚函数，那么子类继承下来的也是纯虚函数，如果不给予实现，那么便不能创建子类的实例，
+如果基类定义的是非纯虚函数，那么子类继承下来的也是非纯虚函数。都可以不予实现，因为自动继承下来了，看你子类的需要。
+
+
+11. friend
+
+友元(frend)机制允许一个类将对其非公有成员的访问权授予指定的函数或者类，友元的声明以friend开始，它只能出现在类定义的内部，友元声明可以出现在类中的任何地方：友元不是授予友元关系的那个类的成员，所以它们不受其声明出现部分的访问控制影响。通常，将友元声明成组地放在类定义的开始或结尾是个好主意。
+
+友元类
+(1) 友元关系不能被继承。
+(2) 友元关系是单向的，不具有交换性。若类B是类A的友元，类A不一定是类B的友元，要看在类中是否有相应的声明。
+(3) 友元关系不具有传递性。若类B是类A的友元，类C是B的友元，类C不一定是类A的友元，同样要看类中是否有相应的申明。
+
+
+当用到友元成员函数时，需注意友元声明和友元定义之间的相互依赖，在该例子中，类B必须先定义，否则类A就不能将一个B的函数指定为友元。然而，只有在定义了类A之后，才能定义类B的该成员函数。更一般的讲，必须先定义包含成员函数的类，才能将成员函数设为友元。另一方面，不必预先声明类和非成员函数来将它们设为友元。
+
+
+优点：
+
+        可以灵活地实现需要访问若干类的私有或受保护的成员才能完成的任务；
+
+        便于与其他不支持类概念的语言(如C语言、汇编等)进行混合编程；
+
+        通过使用友元函数重载可以更自然地使用C++语言的IO流库。
+
+缺点：
+
+        一个类将对其非公有成员的访问权限授予其他函数或者类，会破坏该类的封装性，降低该类的可靠性和可维护性。
+
+
+http://www.cnblogs.com/zhuguanhao/p/6286145.html
+
+
+12. reference
+
+1).&不是求地址运算符，而是起标志作用
+
+2).引用的类型必须和其所绑定的变量的类型相同
+
+3).声明引用的同时必须对其初始化，否则系统会报错
+
+4).引用相当于变量或对象的别名，因此不能再将已有的引用名作为其他变量或对象的名字或别名
+
+5).引用不是定义一个新的变量或对象，因此内存不会为引用开辟新的空间存储这个引用
+
+6).对数组的引用
+int a[3]={1,2,3};
+int (&b)[3]=a;//对数组的引用
+
+7).对指针的引用
+int a=10;
+int *ptr=&a;
+int *&new_ptr=ptr;
+
+https://www.cnblogs.com/duwenxing/p/7421100.html
+
+
+13. static_cast vs dynamic_cast
+
+c++除了能使用c语言的强制类型转换外，还新增了四种强制类型转换：static_cast、dynamic_cast、const_cast、reinterpret_cast，主要运用于继承关系类间的强制转化，语法为：
+
+static_cast<new_type>      (expression)
+dynamic_cast<new_type>     (expression) 
+const_cast<new_type>       (expression) 
+reinterpret_cast<new_type> (expression)
+
+static_cast:
+①用于类层次结构中基类（父类）和派生类（子类）之间指针或引用的转换。
+进行上行转换（把派生类的指针或引用转换成基类表示）是安全的；
+进行下行转换（把基类指针或引用转换成派生类表示）时，由于没有动态类型检查，所以是不安全的。
+②用于基本数据类型之间的转换，如把int转换成char，把int转换成enum。这种转换的安全性也要开发人员来保证。
+③把空指针转换成目标类型的空指针。
+④把任何类型的表达式转换成void类型。
+
+dynamic_cast:
+dynamic_cast主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换（cross cast）。
+在类层次间进行上行转换时，dynamic_cast和static_cast的效果是一样的；
+在进行下行转换时，dynamic_cast具有类型检查的功能，比static_cast更安全。dynamic_cast是唯一无法由旧式语法执行的动作，也是唯一可能耗费重大运行成本的转型动作
+
+const_cast:
+const_cast，用于修改类型的const或volatile属性。 
+
+该运算符用来修改类型的const(唯一有此能力的C++-style转型操作符)或volatile属性。除了const 或volatile修饰之外， new_type和expression的类型是一样的。
+①常量指针被转化成非常量的指针，并且仍然指向原来的对象；
+②常量引用被转换成非常量的引用，并且仍然指向原来的对象；
+③const_cast一般用于修改底指针。如const char *p形式。
+
+
+reinterpret_cast:
+
+new_type必须是一个指针、引用、算术类型、函数指针或者成员指针。它可以把一个指针转换成一个整数，也可以把一个整数转换成一个指针（先把一个指针转换成一个整数，再把该整数转换成原类型的指针，还可以得到原先的指针值）。
+
+reinterpret_cast意图执行低级转型，实际动作（及结果）可能取决于编辑器，这也就表示它不可移植。
+
+
+https://www.cnblogs.com/chenyangchun/p/6795923.html
+
+
+14. 
+
+
+
 
 
 
