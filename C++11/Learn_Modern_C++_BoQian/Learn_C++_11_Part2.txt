@@ -1,0 +1,97 @@
+9. override (for virtual function)
+
+// To avoid inadvertently create new function in derived classes.
+
+// C++ 03
+
+class dog {
+	virtual void A(int);
+	virtual void B() const;
+}
+
+class yellowdog : public dog {
+	virtual void A(float);	// created a new function 
+	virtual void B();	// created a new function
+}
+
+
+// C++ 11
+
+class dog {
+	virtual void A(int);
+	virtual void B() const;
+	void C();
+};
+
+class yellowdog : public dog {
+	virtual void A(float) override;	// Error: no function to override
+	virtual void B() override;	// Error: no function to override
+	void C() override;	// Error: no function to override
+};
+
+
+
+10. final (for virtual function and for class)
+
+class dog final {	// no class can be derived from dog
+	...
+};
+
+class dog {
+	virtual void bark() final;	// no class can override bark()	
+}
+
+
+11. Compiler Generated Default Constructor
+
+class dog {
+	dog(int age) {}
+};
+
+dog dl;	// Error: compiler will not generate the default construtor
+
+
+// C++ 11
+
+class dog {
+	dog(int age);
+	dog() = default; // Force compiler to generate the default constructor	
+}
+
+
+12. delete
+
+class dog {
+	dog(int age) {}
+}
+
+dog a(2);
+dog b(3.0);	// 3.0 is converted from double to int
+a = b;	// Compiler generated assignment operator
+
+
+// C++ 11
+class dog {
+	dog(int age) {}
+	dog(double) = delete; // don't allow double value to convert
+	dog& operator=(const dog&) = delete; // don't allow assignment operator
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
