@@ -77,6 +77,8 @@ class dog {
 	dog& operator=(const dog&) = delete; // don't allow assignment operator
 }
 
+mark
+
 
 
 
