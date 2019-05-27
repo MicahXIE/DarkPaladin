@@ -1,0 +1,48 @@
+http://interviewquestionstutorials.com/tag/100-top-ikm-c-online-test-questions/
+http://www.voidcn.com/article/p-vbugbzvh-bho.html
+http://blog.jobbole.com/44015/
+https://blog.csdn.net/czyt1988/article/details/43636473
+
+
+template
+
+exception
+
+c++11 and c++14 
+
+multithread
+
+const
+static
+
+constructor
+
+abstract class and virtual
+
+static memeber 
+static function
+
+const memeber
+
+auto_ptr
+
+nonmember operator
+
+this pointer (nonstatic, non-const member function)
+
+friend class
+
+*ptr++
+
+long vs long integer
+
+nested class
+
+
+volatile vs synchronized
+
+new vs malloc
+
+
+
+

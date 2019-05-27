@@ -32,6 +32,7 @@ int main(){
     double lo = 0.0, hi = 1e15, mid; 
     for(int i = 0; i < 400; i++){ 
         mid = (lo+hi)/2; 
+        cout << "low: " << lo << " high: " << hi << " mid: " <<mid<<endl;
         int inv = n; 
         double req = 0.0; 
         for (int j = 0; j < k; j++) 
