@@ -1,4 +1,7 @@
 1. 
+
+compile: g++ main.cpp -o main --std=c++11
+
 shortestBridge(vector<vector<int>>& A)
 
 two dimension vector
@@ -31,5 +34,64 @@ vector<int> v1(7,0) // 7 elements and the value is 0
 
 unordered_set
 unordered_map
+
+2. 
+
+reference: https://blog.csdn.net/LanerGaming/article/details/80768543
+
+STL容器分类
+1)，顺序容器 sequence containers
+array
+vector
+deque
+list
+forward-list 
+2)，关联容器 associative containers（红黑树实现）
+set
+multiset
+map
+multimap
+3)，无序容器 unordered containers （hash表实现）（非标准，也可以划分到关联容器）
+hash_set (unordered_set)
+hash_multiset
+hash_map (unordered_map)
+hash_multimap
+
+容器的特性跟背后内存的分布息息相关，从上图可以很清晰的看出。
+stack and queue (not covered)
+
+1，array、vector、deque的内存是连续的，连续的内存空间必定是支持随机访问的，其余容器则不具备该特点。其中array为固定长度，vector、deque为变长，vector只能单向扩充，deque可以双向扩充。
+
+2，list、forward-list为链条式结构，这种结构在插入、删除时只需要局部调整非常方便。但是遍历时只能按照链条顺序依次遍历，查找起来并不迅速。
+
+3，set、map背后的实现为红黑树，所以对查找具有先天的优势，但这种结构插入删除时会产生联动效应，所以并不适合做频发的删除、插入。其中各自multi版本表示内容可以重复。
+
+refer to C++_STL_PIC.png
+
+哈希表的一个重要问题就是如何解决映射冲突的问题。常用的有两种：开放地址法 和 链地址法。
+
+unordered_map: 
+https://www.sczyh30.com/posts/C-C/cpp-stl-hashmap/
+
+map:
+https://mropengate.blogspot.com/2015/12/cc-map-stl.html
+
+STL中，map 对应的数据结构是 红黑树。红黑树是一种近似于平衡的二叉查找树，里面的数据是有序的。在红黑树上做查找操作的时间复杂度为 O(logN)。而 unordered_map 对应 哈希表，哈希表的特点就是查找效率高，时间复杂度为常数级别 O(1)， 而额外空间复杂度则要高出许多。
+
+for (auto &kv : myMap) {
+    count<<kv.first<<" has value "<<kv.second<<endl;
+}
+
+//迭代器刪除
+iter = mapStudent.find("r123");
+mapStudent.erase(iter);
+
+//用關鍵字刪除
+int n = mapStudent.erase("r123");//如果刪除了會返回1，否則返回0
+
+//用迭代器範圍刪除 : 把整個map清空
+mapStudent.erase(mapStudent.begin(), mapStudent.end());
+//等同於mapStudent.clear()
+
 
 

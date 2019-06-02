@@ -1,3 +1,14 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+# Ignore Mac OS desktop services store
+.DS_Store
 
 Inheritance/example_1
 
