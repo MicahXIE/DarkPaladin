@@ -1,4 +1,9 @@
 /*
+BFS: Shortest Reach in a Graph
+
+problem:
+https://www.hackerrank.com/challenges/ctci-bfs-shortest-reach/problem
+
 Sample Input
 
 2

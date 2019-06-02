@@ -1,0 +1,35 @@
+1. 
+shortestBridge(vector<vector<int>>& A)
+
+two dimension vector
+vector<vector<int>> &A
+
+y: A.size()
+x: A[0].size()
+
+initialization:
+vector<int> dirs{0, 1, 0, -1, 0};
+queue<pair<int, int>> q;
+
+insert element (compare with insert, push_back, push_front):
+q.emplace(x, y);
+queue.front();
+
+vector<int> initialize:
+
+vector<int> v1;
+vector<int> v1(v2);
+
+vector<int> v1 = {1,2,3,4,5};
+vector<int> v2{1,2,3,4,5};
+
+vector<int> v1(v2.begin()+2, v2.end()-1)
+
+vector<int> v1(7) // 7 elements
+vector<int> v1(7,0) // 7 elements and the value is 0
+
+
+unordered_set
+unordered_map
+
+

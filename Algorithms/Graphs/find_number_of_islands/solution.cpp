@@ -38,6 +38,18 @@ void DFS(int M[][COL], int row, int col,
         if (isSafe(M, row + rowNbr[k], col + colNbr[k], visited)) 
             DFS(M, row + rowNbr[k], col + colNbr[k], visited); 
 } 
+
+void printVisited(bool visited[ROW][COL])
+{
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; ++j){
+            cout << visited[i][j] << " ";
+        }
+        cout << endl;
+    }    
+
+    cout << "******************************" << endl;
+}
   
 // The main function that returns 
 // count of islands in a given boolean 
@@ -61,6 +73,7 @@ int countIslands(int M[][COL])
                 // visited yet, then new island found 
                 // Visit all cells in this island. 
                 DFS(M, i, j, visited); 
+                printVisited(visited);
   
                 // and increment island count 
                 ++count; 
@@ -78,7 +91,8 @@ int main()
                      { 0, 0, 0, 0, 0 }, 
                      { 1, 0, 1, 0, 1 } }; 
   
-    cout << "Number of islands is: " << countIslands(M) << endl; 
+    int num = countIslands(M); 
+    cout << "Number of islands is: " << num << endl;
   
     return 0; 
 } 

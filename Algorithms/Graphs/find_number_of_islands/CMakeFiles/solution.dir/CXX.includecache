@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/matthew/Documents/GitHub/DarkPaladin/Algorithms/Graphs/find_number_of_islands/solution.cpp
+iostream
+-
+
