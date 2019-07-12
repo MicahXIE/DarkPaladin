@@ -46,4 +46,37 @@ void test(D* x) { f(x); }  // calls f(B*)
 4) 其他库的 .h 文件
 5) 本项目内 .h 文件
 
+7. namespace
+鼓励在 .cc 文件内使用匿名命名空间或 static 声明. 使用具名的命名空间时, 其名称可基于项目名或相对路径. 禁止使用 using 指示（using-directive）。禁止使用内联命名空间（inline namespace）。
+
+命名空间将全局作用域细分为独立的, 具名的作用域, 可有效防止全局作用域的命名冲突.
+
+namespace X {
+inline namespace Y {
+void foo();
+}  // namespace Y
+}  // namespace X
+
+X::Y::foo() 与 X::foo() 彼此可代替。内联命名空间主要用来保持跨版本的 ABI 兼容性。
+
+// .h 文件
+namespace mynamespace {
+
+// 所有声明都置于命名空间中
+// 注意不要使用缩进
+class MyClass {
+    public:
+    ...
+    void Foo();
+};
+
+} // namespace mynamespace
+
+不要在命名空间 std 内声明任何东西, 包括标准库的类前置声明. 
+// 禁止 —— 污染命名空间
+using namespace foo;
+
+8. 在 .cc 文件中定义一个不需要被外部引用的变量时，可以将它们放在匿名命名空间或声明为 static 。但是不要在 .h 文件中这么做。
+
+
 
