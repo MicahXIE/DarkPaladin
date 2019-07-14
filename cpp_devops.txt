@@ -1,0 +1,15 @@
+1. 
+代码静态分析工具——splint
+cpplint是Google提供的工具，用于检查我们的代码是否符合Google C++ Style Guide
+cppcheck是一个历史比较悠久的静态检查工具，它的侧重点在于检查代码的逻辑而不是代码的风格。它可以和cpplint一起使用，相互补充。
+
+
+
+http://blog.guorongfei.com/2018/11/24/static-analizer/
+https://blog.csdn.net/Csdn_Darry/article/details/72793422
+
+2. C++ opensource project
+https://www.zhihu.com/question/21376384
+
+3. Jenkins + cppcheck + cpplint
+https://blog.csdn.net/LOUISLIAOXH/article/details/54598480
