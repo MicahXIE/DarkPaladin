@@ -1,3 +1,5 @@
+https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/
+
 1. 头文件应该能够自给自足（self-contained,也就是可以作为第一个头文件被引入），以 .h 结尾。至于用来插入文本的文件，说到底它们并不是头文件，所以应以 .inc 结尾。不允许分离出 -inl.h 头文件的做法.
 
 2. 如果 .h 文件声明了一个模板或内联函数，同时也在该文件加以定义。凡是有用到这些的 .cc 文件，就得统统包含该头文件，否则程序可能会在构建中链接失败。
@@ -78,5 +80,23 @@ using namespace foo;
 
 8. 在 .cc 文件中定义一个不需要被外部引用的变量时，可以将它们放在匿名命名空间或声明为 static 。但是不要在 .h 文件中这么做。
 
-mark
+9. 使用静态成员函数或命名空间内的非成员函数, 尽量不要用裸的全局函数. 将一系列函数直接置于命名空间中，不要用类的静态方法模拟出命名空间的效果，类的静态方法应当和类的实例或静态数据紧密相关.
+
+namespace myproject {
+namespace foo_bar {
+void Function1();
+void Function2();
+}  // namespace foo_bar
+}  // namespace myproject
+
+而非
+
+namespace myproject {
+class FooBar {
+ public:
+  static void Function1();
+  static void Function2();
+};
+}  // namespace myproject
+
 
