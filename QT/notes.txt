@@ -1,0 +1,12 @@
+1. https://stackoverflow.com/questions/45404925/window-doesnt-appear-when-using-while-loop
+
+int main(int argc, char *argv[]) {
+    QApplication a(argc, argv);
+    MainWindow w(nullptr);
+    w.show();
+    int r = a.exec();
+    return r
+}
+
+
+https://bbs.csdn.net/topics/340243750
