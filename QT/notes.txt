@@ -10,3 +10,22 @@ int main(int argc, char *argv[]) {
 
 
 https://bbs.csdn.net/topics/340243750
+
+example:
+
+https://blog.csdn.net/qiufenpeng/article/details/81583768
+
+QEventLoop and QTimer
+https://blog.csdn.net/qq78442761/article/details/81124375
+
+QThread
+https://blog.csdn.net/itas109/article/details/79621255
+https://www.cnblogs.com/icmzn/p/7347963.html (good)
+https://blog.csdn.net/u014552102/article/details/80216019 (idea)
+
+MoveToThread
+https://blog.csdn.net/learn_sunzhuli/article/details/46290077
+
+
+<deloy_file_path>/models/sphereface_deploy_upgrade.prototxt</deloy_file_path>
+<trained_model_file>/models/sphereface_deepglint-glass_upgrade.caffemodel</trained_model_file>

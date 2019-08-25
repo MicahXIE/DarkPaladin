@@ -697,9 +697,14 @@ relative/path/to/dir/filename.extension
 # Ignore a file without extension
 relative/path/to/dir/anotherfile
 
+8) string 初始化
 
-
-
+//string 初始化
+string s1 = "ywb";
+string s2(s1);
+string s3 = s2;
+string s4("yangwen");
+string s5(10, 'c');
 
 
 
